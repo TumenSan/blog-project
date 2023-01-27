@@ -20,6 +20,7 @@ export const Blog = () => {
                 <Route path="blog/signup" element={<UserProfile/>}></Route>
                 <Route path="blog/users" element={<Users/>}></Route>
                 <Route path="blog/posts" element={<Posts/>}></Route>
+                <Route path="*" element={(<h1>Ошибка (страница не найдена)</h1>)}></Route>
             </Routes>
         </>
       );
