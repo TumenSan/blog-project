@@ -8,3 +8,16 @@
     margin-right: 18%;
     text-align: justify;
 }
+
+.Line{
+    border: none; /* Убираем границу */
+    background-color: #d0d0d0; /* Цвет линии */
+    color: #d0d0d0; /* Цвет линии для IE6-7 */
+    height: 2px; /* Толщина линии */
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.TextPost{
+
+}
