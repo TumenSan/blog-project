@@ -1,13 +1,19 @@
 import './App.css';
-import UserProfile from './components/Blocks/UserProfile/UserProfile';
-import Users from './components/Blocks/Users/Users';
+import React from 'react';
+import {BrowserRouter as Router, 
+  Route, Routes
+} from 'react-router-dom';
+import Blog from './components/Blocks/Blog/Blog';
 
 function App() {
   return (
     <div className="App">
-      <h1>фраза 1</h1>
-      <UserProfile/>
-      <Users/>
+      <Router>
+        <Routes>
+          <Route path="/*" element={<Blog/>}></Route>
+          <Route path="*" element={(<h1>Ошибка</h1>)}></Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
