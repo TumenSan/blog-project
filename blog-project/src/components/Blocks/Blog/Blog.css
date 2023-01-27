@@ -1,6 +1,17 @@
 header{
-    background-color: #24292f;
-    height: 90px;
-    color: white;
-  }
-  
+  background-color: #24292f;
+  height: 60px;
+  color: white;
+  justify-content: stretch;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+header > a{
+  text-align: center; /*Равняем текст по-горизонтали*/
+  margin-left: 20px;
+  color: white;
+}
