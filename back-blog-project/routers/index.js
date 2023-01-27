@@ -8,6 +8,8 @@ const jsonParser = express.json();
 
 
 router.post('/blog/signup', jsonParser, userController.Signup);
+router.post('/blog/addpost', jsonParser, userController.AddPost);
+router.post('/blog/getposts', jsonParser, userController.GetPosts);
 router.post('/blog/generateToken', jsonParser, userController.generateToken);
 router.post('/blog/verifytoken', jsonParser, userController.verifyToken);
 router.get('/blog/hello', userController.Hello);
