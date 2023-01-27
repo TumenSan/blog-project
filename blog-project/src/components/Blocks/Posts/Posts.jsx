@@ -1,20 +1,39 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {useLocation} from 'react-router-dom';
+import axios from 'axios';
 import './Posts.css';
 
 export const Posts = () => {
     const [posts, setPosts] = useState();
 
+    const cat = useLocation().search
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const res = await axios.post("http://localhost:5000/blog/users");
+            setPosts(res.data);
+          } catch (err) {
+            console.log(err);
+          }
+        };
+        fetchData();
+    }, [cat]);
+
     return(
         <>
-            <button className='buttonGetUsers' id='buttonGetUsers' onClick={() => GetPosts()}>
-                GetPosts
-            </button>
             <div class="Post">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 				<div class="Line"> </div>
 				<font size="3" color="#507299"> Like Comment </font>
 			</div>
-            {JSON.stringify(posts, null, 1)}
+            {posts.map((post) => (
+            <div key={post._id}>
+                <div>
+                <p>{post.Token}</p>
+                </div>
+            </div>
+            ))}
 			<div class="Post">
 				<div class="Line"> </div>
 				<div class="DownBlock">
@@ -48,7 +67,8 @@ export const Posts = () => {
       );
 
       
-      async function GetPosts(){
+      //async function GetPosts(){
+        /*
         try{
             const response = await fetch("http://localhost:5000/blog/users", {
                 method: "POST",
@@ -82,7 +102,8 @@ export const Posts = () => {
         catch{
             throw new Error("Ошибка: сервер не работает");
         }
-    }
+        */
+    //}
 }
 
 export default Posts;
