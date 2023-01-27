@@ -16,6 +16,7 @@ export const Blog = () => {
                 <Link to="/blog/posts">posts</Link>
             </header>
             <Routes>
+                <Route path="/" element={(<h1>Здравствуйте, здесь наш блог</h1>)}></Route>
                 <Route path="blog/signup" element={<UserProfile/>}></Route>
                 <Route path="blog/users" element={<Users/>}></Route>
                 <Route path="blog/posts" element={<Posts/>}></Route>

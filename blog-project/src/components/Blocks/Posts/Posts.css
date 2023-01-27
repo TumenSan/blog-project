@@ -1,8 +1,13 @@
+.Container{
+    margin-left: 20%;
+	flex-direction: column;
+}
+
 .Post{
     background-color: white;
     border: 2px solid #e1e5eb;
     border-radius: 10px;
-    width: 400px;
+    width: 500px;
     margin: 10px;
     padding: 15px;
     margin-right: 18%;
