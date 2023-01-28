@@ -1,11 +1,13 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-
+const UserModel = require("../models/userModel");
+const TokenSchema = require("../models/tokenModel");
+/*
 const MongoClient = require("mongodb").MongoClient;
 const url = process.env.DATABASE;
 // создаем объект MongoClient и передаем ему строку подключения
 const mongoClient = new MongoClient(url);
-
+*/
 class PostController {
     async Signup(req, res, next){
         if(!req.body) return res.sendStatus(400);
@@ -20,21 +22,24 @@ class PostController {
 
                 //DB
                 try {
+                    /*
                     await mongoClient.connect();
                     const db = mongoClient.db("blogbox");
                     const collection = db.collection("users");
+                    */
+
                     const user = {
                         login: userLogin,
                         password: userPassword
                     };
-                    const result = await collection.insertOne(user);
+                    const result = await UserModel.create(user);
                     console.log(result);
                     console.log(user);
                 }catch(err) {
                     console.log(err);
                     res.status(404).json('error in DB');
                 } finally {
-                    await mongoClient.close();
+                    //await mongoClient.close();
                     console.log("Подключение закрыто");
                     res.status(200).send(user);
                 }
@@ -63,23 +68,23 @@ class PostController {
                 Login: req.body.Login,
                 Password: req.body.Password
             }
-
+/*
             await mongoClient.connect();
             const db = mongoClient.db("blogbox");
             const collection = db.collection("usersTokens");
-
+*/
             const token = jwt.sign(data, jwtSecretKey);
             const tokenDB = {
                 Token: token
             }
-            await collection.insertOne(tokenDB);
+            await TokenSchema.create(tokenDB);
             res.status(200).send(token);
 
         }catch(err) {
             console.log(err);
             res.status(404).json('error in DB');
         } finally {
-            await mongoClient.close();
+            //await mongoClient.close();
             console.log("Подключение закрыто");
         }
     }
@@ -96,13 +101,13 @@ class PostController {
                 Login: req.body.Login,
                 Password: req.body.Password
             }
-
+/*
             await mongoClient.connect();
             const db = mongoClient.db("blogbox");
             const collection = db.collection("usersTokens");
-
+*/
             const token = jwt.sign(data, jwtSecretKey);
-            let obj = await collection.find({Token: token}).toArray();
+            let obj = await TokenSchema.find({Token: token});
             console.log(obj);
             if (Object.keys(obj).length === 0)
                 throw new Error("Такого пользователя нет");
@@ -112,7 +117,7 @@ class PostController {
             console.log(err);
             res.status(404).json('error in DB');
         } finally {
-            await mongoClient.close();
+            //await mongoClient.close();
             console.log("Подключение закрыто");
         }
     }
@@ -132,21 +137,24 @@ class PostController {
 
         //DB
         try {
+            /*
             await mongoClient.connect();
             const db = mongoClient.db("blogbox");
             const collection = db.collection("users");
             const count = await collection.countDocuments();
             console.log(`В коллекции users ${count} документа/ов`);
-            const results = await collection.find({}, {login: 1,  _id: 0, password: 0}).toArray();
+            */
+            const results = await UserModel.find();
+            //const results = await collection.find({}, {login: 1,  _id: 0, password: 0}).toArray();
             //как получить не все значения
             //const results = await collection.find({name: "Tom"}).toArray();
-            console.log(results);
+            //console.log(results);
             res.status(200).send(results);
         }catch(err) {
             console.log(err);
             res.status(404).json('error in DB');
         } finally {
-            await mongoClient.close();
+            //await mongoClient.close();
             console.log("Подключение закрыто");
         }
     }

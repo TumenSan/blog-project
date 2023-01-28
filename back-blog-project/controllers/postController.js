@@ -1,11 +1,10 @@
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
-
+const PostModel = require("../models/postModel");
+/*
 const MongoClient = require("mongodb").MongoClient;
 const url = process.env.DATABASE;
 // создаем объект MongoClient и передаем ему строку подключения
 const mongoClient = new MongoClient(url);
-
+*/
 class UserController {
     async AddPost(req, res, next){
         if(!req.body) return res.sendStatus(400);
@@ -20,21 +19,21 @@ class UserController {
 
                 //DB
                 try {
-                    await mongoClient.connect();
-                    const db = mongoClient.db("blogbox");
-                    const collection = db.collection("blog");
+                    //await mongoClient.connect();
+                    //const db = mongoClient.db("blogbox");
+                    //const collection = db.collection("blog");
                     const post = {
                         login: userLogin,
                         post: userPost
                     };
-                    const result = await collection.insertOne(post);
+                    const result = await PostModel.create(post);
                     console.log(result);
                     console.log(post);
                 }catch(err) {
                     console.log(err);
                     res.status(404).json('error in DB');
                 } finally {
-                    await mongoClient.close();
+                    //await mongoClient.close();
                     console.log("Подключение закрыто");
                     res.status(200).send(post);
                 }
@@ -56,20 +55,23 @@ class UserController {
 
         //DB
         try {
+            /*
             await mongoClient.connect();
             const db = mongoClient.db("blogbox");
             const collection = db.collection("blog");
             const count = await collection.countDocuments();
             console.log(`В коллекции users ${count} документа/ов`);
             const results = await collection.find().toArray();
+            */
             //const results = await collection.find({name: "Tom"}).toArray();
+            const results = await PostModel.find();
             console.log(results);
             res.status(200).send(results);
         }catch(err) {
             console.log(err);
             res.status(404).json('error in DB');
         } finally {
-            await mongoClient.close();
+            //await mongoClient.close();
             console.log("Подключение закрыто");
         }
     }

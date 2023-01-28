@@ -9,6 +9,7 @@ const cors = require('cors');
 
 const router = require("./routers/index");
 
+const mongoose = require('mongoose');
 
 const start = async () => {
     try{
@@ -26,6 +27,12 @@ const start = async () => {
 
         //документация
         app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+        const url = process.env.DATABASE;
+        await mongoose.connect(url, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        }).then(console.log('подключен mongoose'));      
 
         const port = 5000;
         const host = "localhost";
