@@ -13,13 +13,11 @@ class PostController {
 
         try {
             const userData = await userService.registration(userLogin, userPassword);
-            console.log('userData ' + userData);
             // TODO remove refreshtoken from userData?
             res.cookie("refreshToken", userData.refreshToken, {
               maxAge: 30 * 24 * 60 * 60 * 1000,
               httpOnly: true,
             });
-            console.log('rescookie ' + res);
             return res.json(userData);
 
         } catch(err) {
