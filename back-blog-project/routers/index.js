@@ -1,5 +1,6 @@
 const Router = require("express").Router;
 const userController = require("../controllers/userController");
+const postController = require("../controllers/postController");
 const router = new Router();
 const express = require('express');
 const jsonParser = express.json();
@@ -8,8 +9,8 @@ const jsonParser = express.json();
 
 
 router.post('/blog/signup', jsonParser, userController.Signup);
-router.post('/blog/addpost', jsonParser, userController.AddPost);
-router.post('/blog/getposts', jsonParser, userController.GetPosts);
+router.post('/blog/addpost', jsonParser, postController.AddPost);
+router.post('/blog/getposts', jsonParser, postController.GetPosts);
 router.post('/blog/generateToken', jsonParser, userController.generateToken);
 router.post('/blog/verifytoken', jsonParser, userController.verifyToken);
 router.get('/blog/hello', userController.Hello);
