@@ -7,11 +7,9 @@ class TokenService {
     const accessToken = jwt.sign(payload, process.env.SECRET_KEY, {
       expiresIn: "15m", //access
     });
-    console.log('accessToken ' + accessToken);
     const refreshToken = jwt.sign(payload, process.env.REFRESH_KEY, {
       expiresIn: "30d", //refresh
     });
-    console.log('refreshToken ' + refreshToken);
 
     return {
       accessToken,
@@ -20,9 +18,7 @@ class TokenService {
   }
 
   async saveRefreshToken(userId, refreshToken) {
-    console.log('findOne ' + userId);
     const tokenData = await tokenModel.findOne({ user: userId });
-    console.log('findOneAfter ' + tokenData);
     if (tokenData) {
       tokenData.refreshToken = refreshToken;
       return tokenData.save();
