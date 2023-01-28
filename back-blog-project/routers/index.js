@@ -10,12 +10,11 @@ const jsonParser = express.json();
 
 router.post('/blog/signup', jsonParser, userController.Signup);
 router.post('/blog/login', jsonParser, userController.Login);
+router.post('/blog/logout', jsonParser, userController.Logout);
+router.get('/blog/refresh', jsonParser, userController.Refresh);
 router.post('/blog/addpost', jsonParser, postController.AddPost);
 router.post('/blog/getposts', jsonParser, postController.GetPosts);
-router.post('/blog/generateToken', jsonParser, userController.generateToken);
-router.post('/blog/verifytoken', jsonParser, userController.verifyToken);
 router.get('/blog/hello', userController.Hello);
-router.get('/blog/goodbye', userController.Goodbye);
 router.post('/blog/users', userController.GetAllUsers);
 
 module.exports = router;

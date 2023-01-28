@@ -15,12 +15,12 @@ class UserService {
 
     const hashedPassword = await bcrypt.hash(password, 3);
     const user = await UserModel.create({ login, password: hashedPassword });
-
+    console.log('user ' + user);
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
-    
+    console.log('tokens ' + tokens);
     await tokenService.saveRefreshToken(userDto.id, tokens.refreshToken);
-
+    console.log('tokenService ' + tokenService);
     return { ...tokens, user: userDto };
   }
 

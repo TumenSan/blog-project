@@ -1,4 +1,4 @@
-import {Route, Routes, Link
+import {Route, Routes, Link, redirect 
 } from 'react-router-dom';
 import './Blog.css';
 import UserProfile from '../UserProfile/UserProfile';
@@ -8,6 +8,10 @@ import AddPost from '../AddPost/AppPost';
 import EditPost from '../EditPost/EditPost';
 
 export const Blog = () => {
+    const onCloseSignUp = () => {
+        return redirect("/blog/posts");
+    }
+
     return(
         <>
             <header>
@@ -21,7 +25,7 @@ export const Blog = () => {
             </header>
             <Routes>
                 <Route path="/" element={(<h1>Здравствуйте, здесь наш блог</h1>)}></Route>
-                <Route path="blog/signup" element={<UserProfile/>}></Route>
+                <Route path="blog/signup" element={<UserProfile onClose={onCloseSignUp}/>}></Route>
                 <Route path="blog/users" element={<Users/>}></Route>
                 <Route path="blog/posts" element={<Posts/>}></Route>
                 <Route path="blog/addposts" element={<AddPost/>}></Route>
