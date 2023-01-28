@@ -2,15 +2,17 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const UserModel = require("../models/userModel");
 const TokenSchema = require("../models/tokenModel");
+const userService = require("../service/userService");
 
 class PostController {
     async Signup(req, res, next){
         if(!req.body) return res.sendStatus(400);
 
-        const userLogin = req.body.Login;
-        const userPassword = req.body.Password;
+        const userLogin = req.body.login;
+        const userPassword = req.body.password;
 
         try {
+            /*
             const user = {userLogin, userPassword};
             if ((user.userLogin.length > 5) && (user.userPassword.length > 5)){
                 console.log(user);
@@ -37,12 +39,36 @@ class PostController {
                 console.log('error body have empty login or password');
                 res.status(404).json('error body have empty login or password');
             }
+            */
+            const userData = await userService.registration(userLogin, userPassword);
+
+            // TODO remove refreshtoken from userData?
+            res.cookie("refreshToken", userData.refreshToken, {
+              maxAge: 30 * 24 * 60 * 60 * 1000,
+              httpOnly: true,
+            });
+            return res.json(userData);
 
         } catch(err) {
             console.log(err);
             res.status(404).json('error');
         }
     }
+
+    async Login(req, res, next) {
+        try {
+          const { login, password } = req.body;
+          const userData = await userService.login(login, password);
+    
+          res.cookie("refreshToken", userData.refreshToken, {
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+            httpOnly: true,
+          });
+          return res.json(userData);
+        } catch (e) {
+          next(e);
+        }
+      }
 
     async generateToken (req, res, next) {
         console.log('generateToken');

@@ -21,10 +21,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "Login": {
+                "login": {
                   "example": "any"
                 },
-                "Password": {
+                "password": {
                   "example": "any"
                 }
               }
@@ -40,6 +40,33 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/blog/login": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "login": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

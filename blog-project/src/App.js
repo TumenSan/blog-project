@@ -3,7 +3,7 @@ import React from 'react';
 import {BrowserRouter as Router, 
   Route, Routes
 } from 'react-router-dom';
-import Blog from './components/Blocks/Blog/Blog';
+import Blog from './components/Pages/Blog/Blog';
 
 function App() {
   return (

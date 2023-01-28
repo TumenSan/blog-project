@@ -9,6 +9,7 @@ const jsonParser = express.json();
 
 
 router.post('/blog/signup', jsonParser, userController.Signup);
+router.post('/blog/login', jsonParser, userController.Login);
 router.post('/blog/addpost', jsonParser, postController.AddPost);
 router.post('/blog/getposts', jsonParser, postController.GetPosts);
 router.post('/blog/generateToken', jsonParser, userController.generateToken);

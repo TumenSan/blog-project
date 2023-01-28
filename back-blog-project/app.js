@@ -10,6 +10,7 @@ const cors = require('cors');
 const router = require("./routers/index");
 
 const mongoose = require('mongoose');
+const cookieParser = require("cookie-parser");
 
 const start = async () => {
     try{
@@ -21,6 +22,7 @@ const start = async () => {
             optionSuccessStatus: 200
         }
         app.use(cors(corsOptions));
+        app.use(cookieParser());
 
         //пути
         app.use("/", router);
