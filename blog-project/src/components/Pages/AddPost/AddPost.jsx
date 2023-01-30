@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 //import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useUser } from "../../../contexts/userContext";
 
 export const AddPost = () => {
+    //const [{ user }, dispatch] = useUser();//!
+
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
     const [image, setImage] = useState('')
@@ -11,14 +13,39 @@ export const AddPost = () => {
     //const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const submitHandler = () => {
+    const submitHandler = (event) => {
+        event.preventDefault();
         try {
-            const data = new FormData()
-            data.append('title', title)
-            data.append('text', text)
-            data.append('image', image)
+            //const data = new FormData()
+            const preData = {
+                title: title,
+                text: text,
+                image: image
+            };
+            const data = {
+                Login: title,
+                //Login: user.user?.login,//!
+                Post: JSON.stringify(preData)
+            };
+            //data.push('title', title)
+            //data.push('text', text)
+            //data.push('image', image)
+            console.log(`data: ${JSON.stringify(data)}`);
+            fetch("http://localhost:5000/blog/addpost", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify(data),
+                })
+                .then((response) => response.json())
+                .catch((e) => {
+                    console.log(e);
+                });
             //dispatch(createPost(data))
-            navigate('/')
+            console.log('e!!!!!');
+            navigate('/blog/posts')
         } catch (error) {
             console.log(error)
         }
