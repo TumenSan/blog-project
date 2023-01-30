@@ -4,7 +4,7 @@ import { useUser } from "../../../contexts/userContext";
 import { SET_USER_ACTION } from '../../../actions/userActions';
 import './UserProfile.css';
 
-export const UserProfile = ({onClose }) => {
+export const UserProfileAuth = ({onClose }) => {
   const [{ user }, dispatch] = useUser();
 
   console.log(user);
@@ -14,15 +14,10 @@ export const UserProfile = ({onClose }) => {
 
     const login = event.target[0].value;
     const password = event.target[1].value;
-    const rpassword = event.target[2].value;
-
-    if (password !== rpassword) {
-      alert("Пароли не совпадают");
-    }
 
     const data = { login, password };
 
-    fetch("http://localhost:5000/blog/signup", {
+    fetch("http://localhost:5000/blog/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,20 +58,11 @@ export const UserProfile = ({onClose }) => {
             />
           </label>
 
-          <label htmlFor={SignUpFieldsEnum.rpassword}>
-            <input
-              type="password"
-              id={SignUpFieldsEnum.rpassword}
-              name={SignUpFieldsEnum.rpassword}
-              placeholder="Повторите пароль"
-            />
-          </label>
-
-          <input type="submit" value="Зарегистироваться" />
+          <input type="submit" value="Войти" />
         </form>
       </section>
     </div>
   );
 }
 
-export default UserProfile;
+export default UserProfileAuth;

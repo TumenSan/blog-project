@@ -82,6 +82,17 @@
         }
       }
     },
+    "/blog/refresh": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/blog/addpost": {
       "post": {
         "description": "",
